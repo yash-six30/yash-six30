@@ -1,0 +1,36 @@
+{
+  "name": "birthday",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && touch out/.nojekyll",
+    "start": "next start",
+    "lint": "eslint",
+    "deploy": "npm run build && gh-pages -d out -t true"
+  },
+  "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.20.0",
+    "canvas-confetti": "^1.9.4",
+    "howler": "^2.2.4",
+    "lucide-react": "^1.61.0",
+    "motion": "^14.6.0",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zustand": "^5.0.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/howler": "^2.2.13",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "gh-pages": "^6.3.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
