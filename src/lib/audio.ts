@@ -5,23 +5,70 @@ class AudioService {
   private bgm: Howl | null = null;
   private isMuted: boolean = false;
   private isLoaded: boolean = false;
+  private hasInteractionListener: boolean = false;
 
   private initBgm() {
     if (this.bgm || typeof window === 'undefined') return;
 
     this.bgm = new Howl({
       src: [getAssetPath('/audio/birthday.mp3')],
-      html5: true, // Use HTML5 Audio for streaming larger MP3 files smoothly
+      html5: false, // Use Web Audio API: avoids HTML5 audio pool exhaustion and unlocks seamlessly on touch
       loop: true,
-      volume: 0.22, // Soft, gentle ambient volume
+      volume: 0.28, // Soft, gentle romantic ambient volume
       autoplay: false,
+      preload: true,
       onload: () => {
         this.isLoaded = true;
       },
       onloaderror: (_id, err) => {
         console.warn('Could not load birthday audio:', err);
       },
+      onplayerror: (_id, _err) => {
+        // Autoplay policy prevented playback: wait for user interaction to unlock
+        this.setupAutoplayUnlock();
+      },
     });
+  }
+
+  /**
+   * Set up fallback listeners to start audio on the first user interaction
+   * if initial autoplay was blocked by the browser.
+   */
+  private setupAutoplayUnlock() {
+    if (this.hasInteractionListener || typeof window === 'undefined') return;
+    this.hasInteractionListener = true;
+
+    const unlockHandler = () => {
+      if (!this.isMuted) {
+        this.play();
+      }
+      cleanup();
+    };
+
+    const cleanup = () => {
+      window.removeEventListener('pointerdown', unlockHandler, true);
+      window.removeEventListener('touchstart', unlockHandler, true);
+      window.removeEventListener('click', unlockHandler, true);
+      window.removeEventListener('keydown', unlockHandler, true);
+      this.hasInteractionListener = false;
+    };
+
+    window.addEventListener('pointerdown', unlockHandler, { capture: true, once: true });
+    window.addEventListener('touchstart', unlockHandler, { capture: true, once: true });
+    window.addEventListener('click', unlockHandler, { capture: true, once: true });
+    window.addEventListener('keydown', unlockHandler, { capture: true, once: true });
+  }
+
+  /**
+   * Proactively attempts to start background music as soon as possible.
+   * If browser autoplay restrictions block it, automatically unlocks on first touch/click.
+   */
+  public startAutoplay() {
+    this.initBgm();
+    if (!this.isMuted) {
+      this.play();
+      this.setupAutoplayUnlock();
+    }
   }
 
   public play() {
@@ -29,7 +76,14 @@ class AudioService {
     if (!this.bgm) return;
     this.isMuted = false;
     if (!this.bgm.playing()) {
-      this.bgm.play();
+      try {
+        const id = this.bgm.play();
+        if (id === null) {
+          this.setupAutoplayUnlock();
+        }
+      } catch {
+        this.setupAutoplayUnlock();
+      }
     }
   }
 
@@ -59,8 +113,10 @@ class AudioService {
     }
     if (this.bgm.playing()) {
       this.pause();
+      this.isMuted = true;
       return false;
     } else {
+      this.isMuted = false;
       this.play();
       return true;
     }
@@ -73,6 +129,12 @@ class AudioService {
   // Gentle pop sound effect for clicks
   public playPop() {
     if (typeof window === 'undefined') return;
+    
+    // Also try to kickstart bgm if user interacted but bgm hadn't started yet
+    if (!this.isMuted && this.bgm && !this.bgm.playing()) {
+      this.play();
+    }
+
     try {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       const ctx = new AudioCtx();

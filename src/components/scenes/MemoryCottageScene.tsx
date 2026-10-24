@@ -88,21 +88,21 @@ const PremiumStackCard: React.FC<PremiumCardProps> = ({
         rotate: Math.random() > 0.5 ? 28 : -28,
         transition: { duration: 0.4, ease: [0.32, 0.72, 0, 1] },
       }}
-      className={`absolute w-[325px] sm:w-[350px] bg-white/98 rounded-3xl p-3.5 sm:p-4 border-2 border-[#FBCFE8]/80 select-none ${
+      className={`absolute w-[min(300px,86vw)] sm:w-[330px] h-full max-h-[min(390px,58vh)] bg-white/98 rounded-3xl p-2.5 sm:p-3.5 border-2 border-[#FBCFE8]/80 select-none flex flex-col justify-between ${
         isTop
-          ? 'cursor-grab active:cursor-grabbing z-30 shadow-[0_25px_50px_-12px_rgba(190,24,93,0.25)]'
-          : 'pointer-events-none shadow-[0_15px_30px_-10px_rgba(190,24,93,0.12)]'
+          ? 'cursor-grab active:cursor-grabbing z-30 shadow-[0_20px_45px_-10px_rgba(190,24,93,0.25)]'
+          : 'pointer-events-none shadow-[0_12px_24px_-8px_rgba(190,24,93,0.12)]'
       }`}
     >
       {/* Premium washi tape at top */}
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-5.5 bg-gradient-to-r from-[#FFF0D9] via-[#FFEBF2] to-[#FFF0D9] border border-amber-200/70 rounded-xs shadow-xs rotate-[-1deg] z-20 flex items-center justify-center">
-        <span className="text-[9px] font-bold tracking-widest text-[#BE185D]/70 uppercase">
+      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-5 bg-gradient-to-r from-[#FFF0D9] via-[#FFEBF2] to-[#FFF0D9] border border-amber-200/70 rounded-xs shadow-xs rotate-[-1deg] z-20 flex items-center justify-center">
+        <span className="text-[8px] sm:text-[9px] font-bold tracking-widest text-[#BE185D]/70 uppercase">
           Love Memory
         </span>
       </div>
 
-      {/* Glossy Polaroid Photo Container - Enlarged for crystal clear visibility */}
-      <div className="relative w-full h-[295px] sm:h-[320px] bg-gradient-to-br from-pink-100 via-rose-50 to-amber-50/70 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-2 border border-pink-200/60 shadow-inner">
+      {/* Glossy Polaroid Photo Container - dynamically adapts height */}
+      <div className="relative flex-1 min-h-0 w-full bg-gradient-to-br from-pink-100 via-rose-50 to-amber-50/70 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-2 border border-pink-200/60 shadow-inner mt-1">
         {/* Real photo */}
         {!imgFailedAll && (
           <img
@@ -120,38 +120,38 @@ const PremiumStackCard: React.FC<PremiumCardProps> = ({
         {/* Fallback Sticker / Placeholder when no image loaded */}
         {(!imgLoaded || imgFailedAll) && (
           <>
-            <span className="text-4xl mb-2 drop-shadow-sm filter">{memory.sticker}</span>
-            <h4 className="text-base font-sassy font-extrabold text-[#BE185D] text-center px-2 leading-snug">
+            <span className="text-3xl sm:text-4xl mb-1 drop-shadow-sm filter">{memory.sticker}</span>
+            <h4 className="text-sm sm:text-base font-sassy font-extrabold text-[#BE185D] text-center px-2 leading-snug">
               {memory.title}
             </h4>
-            <span className="text-[11px] text-[#88506E] font-medium mt-1 text-center">
+            <span className="text-[10px] sm:text-[11px] text-[#88506E] font-medium mt-0.5 text-center">
               {memory.tagline}
             </span>
           </>
         )}
 
         {/* Counter Badge */}
-        <div className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-bold text-[#BE185D] shadow-xs border border-[#FBCFE8] z-10">
+        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-md text-[9px] sm:text-[10px] font-bold text-[#BE185D] shadow-xs border border-[#FBCFE8] z-10">
           {memory.order} / {total}
         </div>
       </div>
 
       {/* Handwritten Title & Message Area */}
-      <div className="w-full mt-3 text-center px-1">
-        <div className="flex items-center justify-center gap-1.5 mb-1">
-          <span className="text-sm">{memory.sticker}</span>
-          <h4 className="text-sm font-sassy font-extrabold text-[#BE185D]">
+      <div className="shrink-0 w-full mt-1.5 sm:mt-2 text-center px-1">
+        <div className="flex items-center justify-center gap-1.5 mb-0.5">
+          <span className="text-xs sm:text-sm">{memory.sticker}</span>
+          <h4 className="text-xs sm:text-sm font-sassy font-extrabold text-[#BE185D]">
             {memory.title}
           </h4>
         </div>
-        <p className="text-xs font-outfit text-[#51263B] leading-relaxed italic font-medium">
+        <p className="text-[10px] sm:text-[11px] font-outfit text-[#51263B] leading-tight italic font-medium line-clamp-2">
           &quot;{memory.caption}&quot;
         </p>
       </div>
 
       {/* Elegant swipe helper */}
       {isTop && (
-        <div className="mt-2 text-[10px] text-[#BE185D]/75 font-bold flex items-center justify-center gap-1.5 tracking-wide">
+        <div className="shrink-0 mt-1 text-[9px] sm:text-[10px] text-[#BE185D]/75 font-bold flex items-center justify-center gap-1 tracking-wide">
           <span>👈 Swipe card to flip 👉</span>
         </div>
       )}
@@ -194,25 +194,25 @@ export const MemoryCottageScene: React.FC = () => {
   const isLastCard = cards.length === 1;
 
   return (
-    <div className="relative w-full h-full flex flex-col justify-between p-4 overflow-hidden select-none bg-transparent">
+    <div className="relative w-full h-full min-h-0 flex flex-col justify-between p-3 sm:p-4 overflow-hidden select-none bg-transparent">
       {/* Header */}
-      <div className="text-center pt-1 z-20">
-        <span className="text-[11px] font-bold text-[#BE185D] uppercase tracking-wider">
+      <div className="text-center shrink-0 pt-0.5 sm:pt-1 z-20">
+        <span className="text-[10px] sm:text-[11px] font-bold text-[#BE185D] uppercase tracking-wider">
           Chapter 2: Memory Lane 🏡
         </span>
-        <h2 className="text-xl font-sassy font-extrabold text-[#51263B]">
+        <h2 className="text-lg sm:text-xl font-sassy font-extrabold text-[#51263B] leading-tight">
           All About My Shailaja
         </h2>
-        <p className="text-xs text-[#88506E] mt-0.5">
-          Swipe through your cutest, funniest, and most iconic moments!
+        <p className="text-[10px] sm:text-[11px] text-[#88506E] mt-0.5">
+          Swipe through your cutest moments!
         </p>
       </div>
 
       {/* Stacked Cards Area */}
-      <div className="flex-1 w-full flex items-center justify-center relative my-2" style={{ perspective: 1000 }}>
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center relative my-1 sm:my-1.5" style={{ perspective: 1000 }}>
         <AnimatePresence mode="popLayout">
           {!isCompleted ? (
-            <div className="relative w-[325px] sm:w-[350px] h-[440px] sm:h-[465px] flex items-center justify-center">
+            <div className="relative w-[min(300px,86vw)] sm:w-[330px] h-[min(390px,58vh)] flex items-center justify-center">
               {cards.slice(0, 3).map((mem, idx) => (
                 <PremiumStackCard
                   key={mem.id}
@@ -230,18 +230,18 @@ export const MemoryCottageScene: React.FC = () => {
               key="keepsake-unlocked"
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="p-6 text-center max-w-xs bg-white/95 backdrop-blur-md rounded-3xl border-2 border-[#FBCFE8] shadow-2xl flex flex-col items-center z-30"
+              className="p-4 sm:p-5 text-center max-w-[280px] bg-white/95 backdrop-blur-md rounded-3xl border-2 border-[#FBCFE8] shadow-2xl flex flex-col items-center z-30"
             >
-              <Mochi pose="celebrate" size={110} className="mb-2" />
-              <h3 className="text-lg font-sassy font-bold text-[#51263B] mb-1">
+              <Mochi pose="celebrate" size={80} className="mb-1.5" />
+              <h3 className="text-base sm:text-lg font-sassy font-bold text-[#51263B] mb-1">
                 Memory Keepsake Collected! ✨
               </h3>
-              <p className="text-xs text-[#88506E] mb-4 leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-[#88506E] mb-3 leading-relaxed">
                 &quot;You are my favorite comedy show, my favorite drama, and my most favorite person in the entire world, Kuchu Puchu.&quot;
               </p>
               <button
                 onClick={handleGoToNextScene}
-                className="w-full py-3.5 px-5 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md active:scale-95 cursor-pointer"
+                className="w-full py-2.5 sm:py-3 px-5 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md active:scale-95 cursor-pointer"
               >
                 <span>Next Chapter →</span>
               </button>
@@ -252,15 +252,15 @@ export const MemoryCottageScene: React.FC = () => {
 
       {/* Bottom Button Action */}
       {!isCompleted && (
-        <div className="w-full max-w-xs mx-auto pb-2 z-20 text-center">
+        <div className="w-full max-w-xs shrink-0 mx-auto pb-1 sm:pb-2 pt-0.5 z-20 text-center">
           <button
             onClick={handleSwipeCard}
-            className="w-full py-3.5 px-6 rounded-2xl coquette-button font-sassy font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 cursor-pointer"
+            className="w-full py-2.5 sm:py-3.5 px-6 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 cursor-pointer"
           >
             <span>{isLastCard ? 'Complete Memories ✨' : 'Next Memory ❤️'}</span>
             <Heart className="w-4 h-4 fill-white stroke-none" />
           </button>
-          <p className="text-[10px] text-[#88506E]/70 mt-1.5">
+          <p className="text-[9px] sm:text-[10px] text-[#88506E]/70 mt-1">
             {cards.length} {cards.length === 1 ? 'card' : 'cards'} remaining in the deck
           </p>
         </div>

@@ -111,33 +111,33 @@ export const PasswordLockScreen: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-between p-5 sm:p-7 overflow-hidden select-none bg-transparent">
+    <div className="relative w-full h-full min-h-0 flex flex-col items-center justify-between p-3 sm:p-5 overflow-hidden select-none bg-transparent">
       {/* Background Animated Ambient Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-12 -left-12 w-52 h-52 rounded-full bg-[#FBCFE8]/35 blur-3xl animate-pulse-orb" />
+        <div className="absolute -top-12 -left-12 w-48 h-48 rounded-full bg-[#FBCFE8]/35 blur-3xl animate-pulse-orb" />
         <div
-          className="absolute -bottom-10 -right-10 w-56 h-56 rounded-full bg-[#FFF0D9]/50 blur-3xl animate-pulse-orb"
+          className="absolute -bottom-10 -right-10 w-52 h-52 rounded-full bg-[#FFF0D9]/50 blur-3xl animate-pulse-orb"
           style={{ animationDelay: '3s' }}
         />
       </div>
 
-      {/* Top Header & Security Badge */}
-      <div className="relative z-10 w-full flex flex-col items-center text-center pt-2">
-        <div className="flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/90 border border-[#FBCFE8] shadow-xs mb-2">
+      {/* Top Header */}
+      <div className="relative z-10 w-full shrink-0 flex flex-col items-center text-center pt-0.5 sm:pt-1">
+        <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/90 border border-[#FBCFE8] shadow-xs mb-1">
           {isUnlockedSuccess ? (
-            <Unlock className="w-3.5 h-3.5 text-[#10B981] animate-bounce" />
+            <Unlock className="w-3 h-3 text-[#10B981] animate-bounce" />
           ) : (
-            <Lock className="w-3.5 h-3.5 text-[#F472B6]" />
+            <Lock className="w-3 h-3 text-[#F472B6]" />
           )}
-          <span className="text-[11px] font-bold text-[#BE185D] uppercase tracking-wider">
+          <span className="text-[10px] sm:text-[11px] font-bold text-[#BE185D] uppercase tracking-wider">
             {isUnlockedSuccess ? 'Access Granted ✨' : 'Loveverse Security 🔐'}
           </span>
         </div>
 
-        <h1 className="text-xl sm:text-2xl font-black text-[#5C243B] font-heading tracking-tight leading-snug">
+        <h1 className="text-lg sm:text-2xl font-black text-[#5C243B] font-heading tracking-tight leading-tight">
           Meri Cutu Pattutuu&apos;s World
         </h1>
-        <p className="text-xs text-[#88506E] font-medium mt-0.5">
+        <p className="text-[11px] sm:text-xs text-[#88506E] font-medium mt-0.5">
           Strictly Protected by Tumhare Pati Parmeshwar ❤️
         </p>
       </div>
@@ -152,39 +152,39 @@ export const PasswordLockScreen: React.FC = () => {
             : { opacity: 1, y: 0 }
         }
         transition={{ duration: 0.45 }}
-        className="relative z-10 w-full max-w-[340px] flex flex-col items-center my-auto"
+        className="relative z-10 w-full max-w-[340px] flex-1 min-h-0 flex flex-col items-center justify-center my-auto"
       >
         {/* Mascot */}
-        <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center -mb-2">
-          <Mochi pose={isUnlockedSuccess ? 'celebrate' : 'idle'} size={110} />
+        <div className="w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center -mb-1 shrink-0">
+          <Mochi pose={isUnlockedSuccess ? 'celebrate' : 'idle'} size={88} />
         </div>
 
         {/* Date Selector Glass Card */}
-        <div className="w-full bg-white/90 backdrop-blur-md rounded-3xl p-5 border-2 border-[#FBCFE8] shadow-xl shadow-pink-200/40 flex flex-col items-center">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-[#BE185D] mb-3">
+        <div className="w-full bg-white/92 backdrop-blur-md rounded-3xl p-3 sm:p-4 border-2 border-[#FBCFE8] shadow-xl shadow-pink-200/40 flex flex-col items-center">
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-[#BE185D] mb-1.5">
             <Sparkles className="w-3.5 h-3.5 text-[#F472B6]" />
             <span>Select Your Special Date of Birth:</span>
           </div>
 
           {/* 3-Column Custom Wheel Picker */}
-          <div className="w-full grid grid-cols-3 gap-2 sm:gap-3 py-1">
+          <div className="w-full grid grid-cols-3 gap-2 sm:gap-2.5 py-0.5">
             {/* Day Column */}
             <div className="flex flex-col items-center">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9D6381] mb-1">
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#9D6381] mb-0.5">
                 Day
               </span>
               <button
                 type="button"
                 onClick={() => handleDayChange(1)}
-                className="w-10 h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
+                className="w-9 h-6 sm:h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
                 aria-label="Next Day"
               >
                 <ChevronUp className="w-4 h-4" />
               </button>
 
               {/* Day Value Box */}
-              <div className="w-full h-12 rounded-2xl bg-gradient-to-b from-[#FFF0F5] to-[#FFE4EC] border-2 border-[#F472B6] flex items-center justify-center shadow-inner my-1">
-                <span className="text-xl sm:text-2xl font-black text-[#831843] font-heading">
+              <div className="w-full h-10 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#FFF0F5] to-[#FFE4EC] border-2 border-[#F472B6] flex items-center justify-center shadow-inner my-0.5">
+                <span className="text-lg sm:text-xl font-black text-[#831843] font-heading">
                   {day.toString().padStart(2, '0')}
                 </span>
               </div>
@@ -192,7 +192,7 @@ export const PasswordLockScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleDayChange(-1)}
-                className="w-10 h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
+                className="w-9 h-6 sm:h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
                 aria-label="Previous Day"
               >
                 <ChevronDown className="w-4 h-4" />
@@ -201,21 +201,21 @@ export const PasswordLockScreen: React.FC = () => {
 
             {/* Month Column */}
             <div className="flex flex-col items-center">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9D6381] mb-1">
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#9D6381] mb-0.5">
                 Month
               </span>
               <button
                 type="button"
                 onClick={() => handleMonthChange(1)}
-                className="w-10 h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
+                className="w-9 h-6 sm:h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
                 aria-label="Next Month"
               >
                 <ChevronUp className="w-4 h-4" />
               </button>
 
               {/* Month Value Box */}
-              <div className="w-full h-12 rounded-2xl bg-gradient-to-b from-[#FFF0F5] to-[#FFE4EC] border-2 border-[#F472B6] flex items-center justify-center shadow-inner my-1">
-                <span className="text-lg sm:text-xl font-black text-[#831843] font-heading">
+              <div className="w-full h-10 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#FFF0F5] to-[#FFE4EC] border-2 border-[#F472B6] flex items-center justify-center shadow-inner my-0.5">
+                <span className="text-base sm:text-lg font-black text-[#831843] font-heading">
                   {MONTH_NAMES[month - 1]}
                 </span>
               </div>
@@ -223,7 +223,7 @@ export const PasswordLockScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleMonthChange(-1)}
-                className="w-10 h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
+                className="w-9 h-6 sm:h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
                 aria-label="Previous Month"
               >
                 <ChevronDown className="w-4 h-4" />
@@ -232,21 +232,21 @@ export const PasswordLockScreen: React.FC = () => {
 
             {/* Year Column */}
             <div className="flex flex-col items-center">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9D6381] mb-1">
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#9D6381] mb-0.5">
                 Year
               </span>
               <button
                 type="button"
                 onClick={() => handleYearChange(1)}
-                className="w-10 h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
+                className="w-9 h-6 sm:h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
                 aria-label="Next Year"
               >
                 <ChevronUp className="w-4 h-4" />
               </button>
 
               {/* Year Value Box */}
-              <div className="w-full h-12 rounded-2xl bg-gradient-to-b from-[#FFF0F5] to-[#FFE4EC] border-2 border-[#F472B6] flex items-center justify-center shadow-inner my-1">
-                <span className="text-lg sm:text-xl font-black text-[#831843] font-heading">
+              <div className="w-full h-10 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#FFF0F5] to-[#FFE4EC] border-2 border-[#F472B6] flex items-center justify-center shadow-inner my-0.5">
+                <span className="text-base sm:text-lg font-black text-[#831843] font-heading">
                   {year}
                 </span>
               </div>
@@ -254,7 +254,7 @@ export const PasswordLockScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleYearChange(-1)}
-                className="w-10 h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
+                className="w-9 h-6 sm:h-7 flex items-center justify-center rounded-lg text-[#BE185D] hover:bg-pink-100 active:scale-90 transition cursor-pointer"
                 aria-label="Previous Year"
               >
                 <ChevronDown className="w-4 h-4" />
@@ -263,7 +263,7 @@ export const PasswordLockScreen: React.FC = () => {
           </div>
 
           {/* Selected Date Preview Pill */}
-          <div className="mt-3 px-3 py-1 rounded-full bg-pink-50 border border-pink-200 text-[11px] font-semibold text-[#831843]">
+          <div className="mt-2 px-3 py-0.5 rounded-full bg-pink-50 border border-pink-200 text-[10px] sm:text-[11px] font-semibold text-[#831843]">
             Selected: <span className="font-bold">{day} {MONTH_NAMES[month - 1]} {year}</span> 🎂
           </div>
 
@@ -274,7 +274,7 @@ export const PasswordLockScreen: React.FC = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-2.5 px-3 py-1.5 rounded-xl bg-red-50 border border-red-200 text-[11px] font-semibold text-red-600 text-center"
+                className="mt-1.5 px-3 py-1 rounded-xl bg-red-50 border border-red-200 text-[10px] sm:text-[11px] font-semibold text-red-600 text-center leading-tight"
               >
                 {errorMessage}
               </motion.div>
@@ -284,12 +284,12 @@ export const PasswordLockScreen: React.FC = () => {
       </motion.div>
 
       {/* Bottom CTA Button */}
-      <div className="relative z-10 w-full max-w-[340px] pb-2">
+      <div className="relative z-10 w-full max-w-[340px] shrink-0 pt-1 pb-1 sm:pb-2">
         <button
           type="button"
           onClick={handleUnlock}
           disabled={isVerifying || isUnlockedSuccess}
-          className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#F472B6] via-[#EC4899] to-[#BE185D] text-white font-bold text-sm tracking-wide shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 hover:brightness-105 active:scale-98 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+          className="w-full py-3 sm:py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#F472B6] via-[#EC4899] to-[#BE185D] text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 hover:brightness-105 active:scale-98 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
         >
           {isUnlockedSuccess ? (
             <>

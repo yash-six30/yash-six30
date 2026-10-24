@@ -88,33 +88,34 @@ export const HeartGardenScene: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full flex flex-col justify-between p-4 overflow-hidden select-none bg-transparent">
+    <div className="relative w-full h-full min-h-0 flex flex-col justify-between p-3 sm:p-4 overflow-hidden select-none bg-transparent">
       {/* Header */}
-      <div className="flex items-center justify-between z-10 px-2 pt-1">
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-[#FBCFE8] shadow-xs">
-          <Heart className="w-4 h-4 text-[#BE185D] fill-[#BE185D]" />
-          <span className="text-xs font-bold text-[#BE185D]">
+      <div className="flex items-center justify-between shrink-0 z-10 px-1 pt-0.5 sm:pt-1">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-[#FBCFE8] shadow-xs">
+          <Heart className="w-3.5 h-3.5 text-[#BE185D] fill-[#BE185D]" />
+          <span className="text-[11px] sm:text-xs font-bold text-[#BE185D]">
             {score} / {targetScore} Hearts
           </span>
         </div>
 
-        <span className="text-xs font-bold text-[#88506E]">
+        <span className="text-[11px] sm:text-xs font-bold text-[#88506E]">
           Chapter 1: Heart Garden 🌸
         </span>
       </div>
 
       {/* Playfield Area */}
-      <div className="relative flex-1 w-full my-2 rounded-3xl bg-gradient-to-b from-pink-50/60 to-pink-100/40 border-2 border-[#FBCFE8] overflow-hidden flex items-center justify-center">
+      <div className="relative flex-1 min-h-0 w-full my-1.5 sm:my-2 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-pink-50/70 to-pink-100/50 border-2 border-[#FBCFE8] overflow-hidden flex items-center justify-center">
         {!isPlaying && !isWon && (
-          <div className="text-center p-6 flex flex-col items-center">
+          <div className="text-center p-4 sm:p-6 flex flex-col items-center">
             <Mochi
               pose="wave"
+              size={90}
               dialogue="Catch all 12 sweet hearts floating in the breeze, Kuchu Puchu! Ready?"
-              className="mb-4"
+              className="mb-3"
             />
             <button
               onClick={handleStartGame}
-              className="py-3 px-8 rounded-2xl coquette-button font-sassy font-bold text-sm shadow-md active:scale-95 cursor-pointer"
+              className="py-2.5 sm:py-3 px-6 sm:px-8 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm shadow-md active:scale-95 cursor-pointer"
             >
               Start Catching 💖
             </button>
@@ -128,7 +129,7 @@ export const HeartGardenScene: React.FC = () => {
               <motion.button
                 key={heart.id}
                 initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1, y: [0, -10, 0] }}
+                animate={{ scale: 1, opacity: 1, y: [0, -8, 0] }}
                 exit={{ scale: 1.4, opacity: 0 }}
                 transition={{
                   y: { repeat: Infinity, duration: 1.6, ease: 'easeInOut' },
@@ -137,8 +138,8 @@ export const HeartGardenScene: React.FC = () => {
                   position: 'absolute',
                   left: `${heart.x}%`,
                   top: `${heart.y}%`,
-                  width: heart.size,
-                  height: heart.size,
+                  width: Math.min(heart.size, 46),
+                  height: Math.min(heart.size, 46),
                 }}
                 onClick={() => handleCatchHeart(heart.id, heart.isGold)}
                 className="flex items-center justify-center cursor-pointer active:scale-90"
@@ -155,23 +156,23 @@ export const HeartGardenScene: React.FC = () => {
           </AnimatePresence>
         )}
 
-        {/* Win Modal with Single Obvious CTA */}
+        {/* Win Modal */}
         {isWon && (
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="p-6 text-center max-w-xs bg-white/95 backdrop-blur-md rounded-3xl border-2 border-[#FBCFE8] shadow-2xl flex flex-col items-center"
+            className="p-4 sm:p-5 text-center max-w-[280px] bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-[#FBCFE8] shadow-2xl flex flex-col items-center"
           >
-            <Mochi pose="celebrate" className="mb-2" />
-            <h3 className="text-lg font-sassy font-bold text-[#51263B] mb-1">
+            <Mochi pose="celebrate" size={75} className="mb-1" />
+            <h3 className="text-base sm:text-lg font-sassy font-bold text-[#51263B] mb-1">
               Heart Charm Awarded! ✨
             </h3>
-            <p className="text-xs text-[#88506E] mb-4 leading-relaxed">
+            <p className="text-[11px] sm:text-xs text-[#88506E] mb-3 leading-relaxed">
               &quot;You caught all 12 hearts, Babu… but you have had my whole heart all along.&quot;
             </p>
             <button
               onClick={() => setScene('memory-cottage')}
-              className="w-full py-3 px-5 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md active:scale-95 cursor-pointer"
+              className="w-full py-2.5 sm:py-3 px-5 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md active:scale-95 cursor-pointer"
             >
               <span>Next Chapter →</span>
             </button>
@@ -180,8 +181,8 @@ export const HeartGardenScene: React.FC = () => {
       </div>
 
       {/* Bottom status */}
-      <div className="text-center py-1">
-        <p className="text-xs font-semibold text-[#BE185D] italic">
+      <div className="text-center shrink-0 py-0.5 sm:py-1">
+        <p className="text-[11px] sm:text-xs font-semibold text-[#BE185D] italic">
           {getCompliment()}
         </p>
       </div>

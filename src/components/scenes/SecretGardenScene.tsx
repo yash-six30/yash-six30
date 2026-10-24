@@ -166,30 +166,30 @@ export const SecretGardenScene: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full flex flex-col justify-between p-4 overflow-y-auto select-none bg-transparent">
+    <div className="relative w-full h-full min-h-0 flex flex-col justify-between p-3 sm:p-4 overflow-hidden select-none bg-transparent">
       {/* Header */}
-      <div className="text-center pt-1">
-        <span className="text-[11px] font-bold text-[#BE185D] uppercase tracking-wider">
+      <div className="text-center shrink-0 pt-0.5 sm:pt-1">
+        <span className="text-[10px] sm:text-[11px] font-bold text-[#BE185D] uppercase tracking-wider">
           Chapter 5: Secret Garden 🌙
         </span>
-        <h2 className="text-xl font-sassy font-extrabold text-[#51263B]">
+        <h2 className="text-lg sm:text-xl font-sassy font-extrabold text-[#51263B] leading-tight">
           Secret Love Notes
         </h2>
-        <p className="text-xs text-[#88506E] mt-0.5">
+        <p className="text-[11px] sm:text-xs text-[#88506E] mt-0.5">
           Card {currentCardIndex + 1} of {cards.length} for my Bebu
         </p>
       </div>
 
       {/* Scratch Card Area */}
-      <div className="flex-1 flex flex-col items-center justify-center my-auto">
-        <div className="relative w-72 sm:w-80 h-56 bg-white rounded-3xl p-5 shadow-2xl border-2 border-[#FBCFE8] flex flex-col items-center justify-center text-center overflow-hidden">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center my-auto">
+        <div className="relative w-[min(280px,85vw)] sm:w-80 h-44 sm:h-52 bg-white rounded-3xl p-4 sm:p-5 shadow-xl border-2 border-[#FBCFE8] flex flex-col items-center justify-center text-center overflow-hidden">
           {/* Secret Note under foil */}
           <div className="flex flex-col items-center justify-center h-full px-2">
-            <span className="text-3xl mb-2">{currentCard.icon}</span>
-            <h3 className="text-base font-sassy font-bold text-[#BE185D] leading-snug">
+            <span className="text-2xl sm:text-3xl mb-1">{currentCard.icon}</span>
+            <h3 className="text-sm sm:text-base font-sassy font-bold text-[#BE185D] leading-snug">
               &quot;{currentCard.secret}&quot;
             </h3>
-            <p className="text-xs text-[#88506E] mt-2 italic leading-relaxed">
+            <p className="text-[10px] sm:text-xs text-[#88506E] mt-1.5 italic leading-relaxed line-clamp-3">
               {currentCard.subtext}
             </p>
           </div>
@@ -199,7 +199,7 @@ export const SecretGardenScene: React.FC = () => {
             <canvas
               ref={canvasRef}
               width={320}
-              height={224}
+              height={208}
               onPointerDown={handlePointerDown}
               onPointerUp={handlePointerUp}
               onPointerMove={handlePointerMove}
@@ -210,11 +210,11 @@ export const SecretGardenScene: React.FC = () => {
       </div>
 
       {/* Single Linear Action at Bottom */}
-      <div className="w-full max-w-xs mx-auto pb-2 text-center">
+      <div className="w-full max-w-xs shrink-0 mx-auto pb-1 sm:pb-2 pt-0.5 text-center">
         {isRevealed ? (
           <button
             onClick={handleNext}
-            className="w-full py-3.5 px-6 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 cursor-pointer"
+            className="w-full py-2.5 sm:py-3.5 px-6 rounded-2xl coquette-button font-sassy font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 cursor-pointer"
           >
             <span>
               {isLastCard ? 'Final Chapter →' : 'Next Card ✨'}
@@ -224,7 +224,7 @@ export const SecretGardenScene: React.FC = () => {
         ) : (
           <Mochi
             pose="wave"
-            size={80}
+            size={65}
             dialogue="Scratch off the gold foil with your finger to read the secret note!"
           />
         )}
