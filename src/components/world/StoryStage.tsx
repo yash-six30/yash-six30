@@ -24,17 +24,14 @@ export const StoryStage: React.FC = () => {
 
   useEffect(() => {
     setHasMounted(true);
-    // Proactively start background music with fallback unlock
-    ambientAudio.startAutoplay();
+    if (musicEnabled) {
+      ambientAudio.startAutoplay();
+    }
   }, []);
 
   useEffect(() => {
     if (!hasMounted) return;
-    if (musicEnabled) {
-      ambientAudio.play();
-    } else {
-      ambientAudio.pause();
-    }
+    ambientAudio.setMute(!musicEnabled);
   }, [musicEnabled, hasMounted]);
 
   if (!hasMounted) {

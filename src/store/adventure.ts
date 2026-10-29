@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { ambientAudio } from '@/lib/audio';
 
 export type SceneId =
   | 'lock'
@@ -137,9 +138,17 @@ export const useAdventureStore = create<AdventureState>((set, get) => ({
       return { revealedScratchCards: [...state.revealedScratchCards, cardId] };
     }),
 
-  toggleMusic: () => set((state) => ({ musicEnabled: !state.musicEnabled })),
+  toggleMusic: () =>
+    set((state) => {
+      const next = !state.musicEnabled;
+      ambientAudio.setMute(!next);
+      return { musicEnabled: next };
+    }),
 
-  setMusicEnabled: (enabled) => set({ musicEnabled: enabled }),
+  setMusicEnabled: (enabled) => {
+    ambientAudio.setMute(!enabled);
+    set({ musicEnabled: enabled });
+  },
 
   resetAdventure: () => set(INITIAL_STATE),
 }));

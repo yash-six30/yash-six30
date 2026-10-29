@@ -35,7 +35,7 @@ class AudioService {
    * if initial autoplay was blocked by the browser.
    */
   private setupAutoplayUnlock() {
-    if (this.hasInteractionListener || typeof window === 'undefined') return;
+    if (this.hasInteractionListener || typeof window === 'undefined' || this.isMuted) return;
     this.hasInteractionListener = true;
 
     const unlockHandler = () => {
@@ -64,17 +64,17 @@ class AudioService {
    * If browser autoplay restrictions block it, automatically unlocks on first touch/click.
    */
   public startAutoplay() {
+    if (this.isMuted) return;
     this.initBgm();
-    if (!this.isMuted) {
-      this.play();
-      this.setupAutoplayUnlock();
-    }
+    this.play();
+    this.setupAutoplayUnlock();
   }
 
   public play() {
+    if (this.isMuted) return;
     this.initBgm();
     if (!this.bgm) return;
-    this.isMuted = false;
+    this.bgm.mute(false);
     if (!this.bgm.playing()) {
       try {
         const id = this.bgm.play();
@@ -99,27 +99,25 @@ class AudioService {
 
   public setMute(mute: boolean) {
     this.isMuted = mute;
-    if (mute) {
-      this.pause();
-    } else {
-      this.play();
+    if (this.bgm) {
+      if (mute) {
+        this.bgm.mute(true);
+        this.bgm.pause();
+      } else {
+        this.bgm.mute(false);
+        this.play();
+      }
     }
   }
 
   public toggle() {
-    if (!this.bgm) {
-      this.play();
-      return true;
-    }
-    if (this.bgm.playing()) {
-      this.pause();
-      this.isMuted = true;
-      return false;
-    } else {
-      this.isMuted = false;
-      this.play();
-      return true;
-    }
+    const nextMute = !this.isMuted;
+    this.setMute(nextMute);
+    return !nextMute;
+  }
+
+  public getMuted(): boolean {
+    return this.isMuted;
   }
 
   public isPlaying(): boolean {

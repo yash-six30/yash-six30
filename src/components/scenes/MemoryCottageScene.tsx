@@ -144,7 +144,7 @@ const PremiumStackCard: React.FC<PremiumCardProps> = ({
             {memory.title}
           </h4>
         </div>
-        <p className="text-[10px] sm:text-[11px] font-outfit text-[#51263B] leading-tight italic font-medium line-clamp-2">
+        <p className="text-[10px] sm:text-[11px] font-outfit text-[#51263B] leading-tight italic font-medium line-clamp-3">
           &quot;{memory.caption}&quot;
         </p>
       </div>

@@ -27,7 +27,7 @@ export const IslandScene: React.FC = () => {
     {
       id: 4,
       title: 'Mystery Gifts',
-      tag: 'Coupons & Bumkissies 🎁',
+      tag: 'Love Coupons & Gifts 🎁',
       emoji: '🎁',
       color: 'from-purple-400 to-pink-500',
     },

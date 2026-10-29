@@ -13,13 +13,12 @@ export const NavigationChrome: React.FC = () => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (musicEnabled) {
-      ambientAudio.play();
-    } else {
-      ambientAudio.pause();
-    }
-  }, [musicEnabled]);
+  const handleToggleMusic = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const nextState = !musicEnabled;
+    ambientAudio.setMute(!nextState);
+    toggleMusic();
+  };
 
   if (!mounted) return null;
 
@@ -41,7 +40,7 @@ export const NavigationChrome: React.FC = () => {
 
       {/* Right: Music Mute / Unmute Button */}
       <button
-        onClick={toggleMusic}
+        onClick={handleToggleMusic}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border shadow-xs transition active:scale-95 cursor-pointer ${
           musicEnabled
             ? 'bg-[#F472B6] text-white border-[#BE185D] animate-pulse-glow'

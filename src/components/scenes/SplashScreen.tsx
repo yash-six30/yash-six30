@@ -9,7 +9,7 @@ import confetti from 'canvas-confetti';
 import { Sparkles, Heart } from 'lucide-react';
 
 export const SplashScreen: React.FC = () => {
-  const { setScene, setMusicEnabled } = useAdventureStore();
+  const { setScene, musicEnabled } = useAdventureStore();
   const [countdown, setCountdown] = useState<number>(3);
   const [showMain, setShowMain] = useState<boolean>(false);
 
@@ -40,8 +40,9 @@ export const SplashScreen: React.FC = () => {
   }, [countdown]);
 
   const handleStart = () => {
-    setMusicEnabled(true);
-    ambientAudio.play();
+    if (musicEnabled) {
+      ambientAudio.play();
+    }
     ambientAudio.playPop();
     setScene('invitation');
   };
